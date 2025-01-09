@@ -7,6 +7,4 @@ public class Woman extends Human {
     public void Makeup (){
 
     }
-
-
 }
