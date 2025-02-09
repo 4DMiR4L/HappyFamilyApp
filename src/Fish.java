@@ -1,5 +1,7 @@
+import java.util.List;
+
 public class Fish extends Pet {
-    public Fish(Species species, String nickName, int age, int trickLevels, String[] habits) {
+    public Fish(Species species, String nickName, int age, int trickLevels, List<String> habits) {
         super(species, nickName, age, trickLevels, habits);
     }
 

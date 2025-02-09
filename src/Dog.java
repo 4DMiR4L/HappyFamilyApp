@@ -1,7 +1,9 @@
+import java.util.List;
+
 public class Dog extends Pet implements Foul {
 
 
-    public Dog(Species species, String nickName, int age, int trickLevels, String[] habits) {
+    public Dog(Species species, String nickName, int age, int trickLevels, List<String> habits) {
         super(species, nickName, age, trickLevels, habits);
     }
 

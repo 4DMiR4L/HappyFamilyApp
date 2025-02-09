@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class Human {
 
@@ -8,7 +10,7 @@ public class Human {
     private int IQ;
     private Pet pet;
     private Family family;
-    private String[][] shedule;
+    private List<List<String>> schedule;
 
 
     public void greetPet() {
@@ -18,7 +20,7 @@ public class Human {
     public boolean feedPet(boolean isHungry) {
         if (isHungry) {
             System.out.println("Hm... I will feed " + pet.getNickName());
-            pet.eat(); // Pet-in yemək metodunu çağırır
+            pet.eat();
         }
         return true;
     }
@@ -28,14 +30,14 @@ public class Human {
         System.out.println("I have an" + pet.getNickName() + "is" + pet.getAge() + " years old" + "he is" + slyness);
     }
 
-    public Human(String name, String surname, int dateOfBirth, int IQ, Pet pet, Family family, String[][] shedule) {
+    public Human(String name, String surname, int dateOfBirth, int IQ, Pet pet, Family family, List<List<String>> schedule) {
         this.name = name;
         this.surname = surname;
         this.dateOfBirth = dateOfBirth;
         this.IQ = IQ;
         this.pet = pet;
         this.family = family;
-        this.shedule = shedule;
+        this.schedule = schedule;
     }
 
     public String getName() {
@@ -86,12 +88,23 @@ public class Human {
         this.family = family;
     }
 
-    public String[][] getShedule() {
-        return shedule;
+    public List<List<String>> getSchedule() {
+        return schedule;
     }
 
-    public void setShedule(String[][] shedule) {
-        this.shedule = shedule;
+    public void setSchedule(List<List<String>> schedule) {
+        this.schedule = schedule;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Human human)) return false;
+        return dateOfBirth == human.dateOfBirth && IQ == human.IQ && Objects.equals(name, human.name) && Objects.equals(surname, human.surname) && Objects.equals(pet, human.pet) && Objects.equals(family, human.family) && Objects.equals(schedule, human.schedule);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, dateOfBirth, IQ, pet, family, schedule);
     }
 
     @Override
@@ -103,7 +116,7 @@ public class Human {
                 ", IQ=" + IQ +
                 ", pet=" + pet +
                 ", family=" + family +
-                ", shedule=" + Arrays.toString(shedule) +
+                ", schedule=" + schedule +
                 '}';
     }
 }

@@ -1,15 +1,25 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Family {
     private Human mother;
     private Human father;
-    private Human[] children;
+    private ArrayList<Human> children = new ArrayList<>();
     private Pet pet;
 
     public Family(Human mother, Human father) {
         this.mother = mother;
         this.father = father;
-        this.children = new Human[0];
+        this.children = children;
+        this.pet = pet;
+    }
+
+    public ArrayList<Human> getChildren() {
+        return children;
+    }
+
+    public void setChildren(ArrayList<Human> children) {
+        this.children = children;
     }
 
     public Human getMother() {
@@ -28,14 +38,6 @@ public class Family {
         this.father = father;
     }
 
-    public Human[] getChildren() {
-        return children;
-    }
-
-    public void setChildren(Human[] children) {
-        this.children = children;
-    }
-
     public Pet getPet() {
         return pet;
     }
@@ -45,39 +47,35 @@ public class Family {
     }
 
     public void addChild(Human child) {
-        Human[] newChildren = new Human[children.length + 1];
-        for (int i = 0; i < children.length; i++) {
-            newChildren[i] = children[i];
-        }
-        newChildren[children.length] = child;
-        children = newChildren;
+        children.add(child);
         child.setFamily(this);
     }
 
     public void deleteChild(Human child) {
-        int indexToRemove = -1;
-        for (int i = 0; i < children.length; i++) {
-            if (children[i] == child) {
-                indexToRemove = i;
-                break;
-            }
-        }
-        if (indexToRemove == -1) {
-            System.out.println("Child not found in the list.");
-            return;
-        }
 
-        Human[] newChildren = new Human[children.length - 1];
-        for (int i = 0, j = 0; i < children.length; i++) {
-            if (i != indexToRemove) {
-                newChildren[j++] = children[i];
-            }
+
+        if (children.contains(child)) {
+            children.remove(child);
+            child.setFamily(null);
+        } else {
+            System.out.println("Child not found in the list.");
         }
-        children = newChildren;
-        child.setFamily(null);
     }
+
+
     public int countFamily() {
-        return 2 + children.length;
+        return 2 + children.size();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Family family)) return false;
+        return Objects.equals(mother, family.mother) && Objects.equals(father, family.father) && Objects.equals(children, family.children) && Objects.equals(pet, family.pet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mother, father, children, pet);
     }
 
     @Override
@@ -85,7 +83,7 @@ public class Family {
         return "Family{" +
                 "mother=" + mother +
                 ", father=" + father +
-                ", children=" + Arrays.toString(children) +
+                ", children=" + children +
                 ", pet=" + pet +
                 '}';
     }

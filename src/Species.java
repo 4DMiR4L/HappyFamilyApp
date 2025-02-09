@@ -1,7 +1,7 @@
 public enum Species {
-    DOG(true, 4, true),
+    DOG(false, 4, true),
     RoboCat(false, 4, true),
-    DomesticCat(false, 2, true),
+    DomesticCat(false, 4, true),
     FISH(false, 0, false),
     UNKNOWN(false, 0, false);
 

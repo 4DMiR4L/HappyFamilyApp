@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public abstract class Pet {
 
@@ -6,7 +9,8 @@ public abstract class Pet {
     private String nickName;
     private int age;
     private int trickLevels;
-    private String[] habits;
+    private List<String> habits = new ArrayList<>();
+
 
     public static void pet() {
     }
@@ -20,8 +24,7 @@ public abstract class Pet {
     }
 
 
-    public Pet(Species species, String nickName, int age, int trickLevels, String[] habits) {
-
+    public Pet(Species species, String nickName, int age, int trickLevels, List<String> habits) {
         this.species = species;
         this.nickName = nickName;
         this.age = age;
@@ -61,22 +64,33 @@ public abstract class Pet {
         this.trickLevels = trickLevels;
     }
 
-    public String[] getHabits() {
+    public List<String> getHabits() {
         return habits;
     }
 
-    public void setHabits(String[] habits) {
+    public void setHabits(List<String> habits) {
         this.habits = habits;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Pet pet)) return false;
+        return age == pet.age && trickLevels == pet.trickLevels && species == pet.species && Objects.equals(nickName, pet.nickName) && Objects.equals(habits, pet.habits);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(species, nickName, age, trickLevels, habits);
     }
 
     @Override
     public String toString() {
         return "Pet{" +
-                "species='" + species + '\'' +
+                "species=" + species +
                 ", nickName='" + nickName + '\'' +
                 ", age=" + age +
                 ", trickLevels=" + trickLevels +
-                ", habits=" + Arrays.toString(habits) +
+                ", habits=" + habits +
                 '}';
     }
 }
